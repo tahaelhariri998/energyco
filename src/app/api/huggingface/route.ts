@@ -126,7 +126,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ reply: assistantReplyMessage });
 
-  } catch (error: any) {
+  } catch (error: string | any) {
     console.error("Error in api/chat-novita:", error);
     const errorMessage = error.cause?.message || error.message || "An unexpected error occurred.";
     const errorStatus = error.status || (error.cause as any)?.status || 500;
