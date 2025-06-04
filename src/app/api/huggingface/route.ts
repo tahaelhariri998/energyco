@@ -126,10 +126,33 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ reply: assistantReplyMessage });
 
-  } catch (error: string | any) {
+  } catch (error: unknown) {
     console.error("Error in api/chat-novita:", error);
-    const errorMessage = error.cause?.message || error.message || "An unexpected error occurred.";
-    const errorStatus = error.status || (error.cause as any)?.status || 500;
+    let errorMessage = "An unexpected error occurred.";
+    let errorStatus = 500;
+    if (typeof error === "object" && error !== null) {
+      const errObj = error as { message?: string; status?: number; cause?: { message?: string; status?: number } };
+      if (
+        "cause" in errObj &&
+        typeof errObj.cause === "object" &&
+        errObj.cause !== null &&
+        "message" in errObj.cause
+      ) {
+        errorMessage = errObj.cause.message as string;
+      } else if ("message" in errObj) {
+        errorMessage = errObj.message as string;
+      }
+      if ("status" in errObj) {
+        errorStatus = errObj.status as number;
+      } else if (
+        "cause" in errObj &&
+        typeof errObj.cause === "object" &&
+        errObj.cause !== null &&
+        "status" in errObj.cause
+      ) {
+        errorStatus = errObj.cause.status as number;
+      }
+    }
     return NextResponse.json({ error: errorMessage }, { status: errorStatus });
   }
 }

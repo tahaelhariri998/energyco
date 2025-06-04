@@ -137,9 +137,13 @@ export default function ChatPage() {
         throw new Error('No valid reply content found in the server response.');
       }
 
-    } catch (err: string | any) {
+    } catch (err: unknown) {
       console.error(`Error submitting prompt to ${currentModel.name}:`, err);
-      setError(err.message || 'An unexpected error occurred.');
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'An unexpected error occurred.'
+      );
       // Revert optimistic update on error
       setChatHistories(prev => ({ ...prev, [activeModelId]: historyForAPI }));
     } finally {

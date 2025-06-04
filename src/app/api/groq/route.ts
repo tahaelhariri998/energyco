@@ -123,10 +123,14 @@ export async function POST(request: Request) {
       }
     });
 
-  } catch (error: string | any) {
+  } catch (error: unknown) {
     console.error("Error in /api/groq:", error);
-    const errorMessage = error.message || "An unexpected error occurred with Groq API.";
-    const errorStatus = error.status || 500;
+    const errorMessage = typeof error === 'object' && error !== null && 'message' in error
+      ? (error as { message: string }).message
+      : "An unexpected error occurred with Groq API.";
+    const errorStatus = typeof error === 'object' && error !== null && 'status' in error
+      ? (error as { status: number }).status
+      : 500;
     return NextResponse.json({ error: errorMessage }, { status: errorStatus });
   }
 }
