@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 // هذا هو الرمز الذي ستضعه في لوحة تحكم Meta للتحقق من الـ Webhook
-const VERIFY_TOKEN = process.env.WHATSAPP_TOKEN;
+const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
 // استقبال طلبات GET للتحقق
 interface WebhookRequest extends Request {
