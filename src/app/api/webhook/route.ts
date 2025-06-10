@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 // استيراد متغيرات البيئة
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 const ACCESS_TOKEN = process.env.WHATSAPP_TOKEN;
-const PHONE_NUMBER_ID = process.env.WHATSAPP_PHONE_NUMBER_ID;
+const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
 
 // ----- دالة جديدة لإرسال الرسائل -----
 interface SendMessagePayload {
