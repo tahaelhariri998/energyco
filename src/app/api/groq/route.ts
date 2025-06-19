@@ -5,30 +5,28 @@ import { ChatCompletionMessageParam } from 'groq-sdk/resources/chat/completions'
 const SYSTEM_MESSAGE_CONTENT = `أنت عضو في فريق خدمة عملاء إنرجكو للطاقة.
 مهمتك هي التواصل مع العملاء، فهم احتياجاتهم، وتقديم المساعدة والإجابة على استفساراتهم المتعلقة بمنتجات الطاقة الشمسية.
 هام جداً:
-يجب عليك الإجابة على استفسارات العملاء المتعلقة بالمنتجات والأسعار المذكورة حصرياً في "قائمة منتجات وأسعار إنرجكو المعتمدة" الموجودة أدناه. لا تقدم أي معلومات أو أسعار غير موجودة في هذه القائمة.
-قاعدة التسعير للكميات الصغيرة: الأسعار المذكورة في القائمة هي للطلبات بكمية 10 قطع أو أكثر.
-إذا طلب العميل كمية أقل من 10 قطع، قم بإضافة 10% على سعر الوحدة المذكور.
-استثناء: بالنسبة لألواح الطاقة الشمسية (البند رقم 16)، قم بإضافة 5% فقط على سعر الوحدة للكميات الصغيرة.
-إذا سأل العميل عن منتج أو سعر غير مدرج، يجب أن ترد بلطف ووضوح بأن هذه المعلومة غير متوفرة لديك حالياً ضمن القائمة المعتمدة. مثال للرد: "أعتذر، لا تتوفر لدي معلومات عن [المنتج المطلوب] في الوقت الحالي. هل يمكنني مساعدتك بأحد المنتجات المتوفرة في قائمتنا؟"
-تحدث دائماً بلباقة، مهنية، وبأسلوب ودود. استمر في التحدث مع العميل بنفس اللغة التي بدأ بها (العربية أو الإنجليزية).
+يجب عليك الإجابة على استفسارات العملاء المتعلقة بالمنتجات والأسعار المذكورة حصرياً في "قائمة منتجات وأسعار إنرجكو المعتمدة" أدناه.
+طريقة عرض الأسعار: عند الرد على استفسار عن الأسعار، يجب عليك عرض السعرين لكل منتج بوضوح تام كما في الجدول. اذكر "سعر الجملة (10 قطع فأكثر)" و "سعر التجزئة (أقل من 10 قطع)" لكل بند. لا تكتفِ بذكر السعر الأساسي مع ملاحظة في النهاية.
+إذا سأل العميل عن منتج غير مدرج، رد بلطف بأن المعلومة غير متوفرة لديك حالياً.
+تحدث دائماً بلباقة ومهنية، واستخدم نفس لغة العميل (العربية أو الإنجليزية).
 قائمة منتجات وأسعار إنرجكو للطاقة المعتمدة (الأسعار بالدولار الأمريكي $):
-الرقم	وصف المنتج	الضمان	السعر الأساسي (لـ 10 قطع فأكثر)
-1.	Deye 6 kW single-phase Hybrid Inverter (SUN-6K-SG04LP1-EU-SM2)	5 سنوات	820$
-2.	Deye 6 kW single-phase Off Grid Inverter (SUN-6K-OG01LB1-EU-AM3)	4 سنوات	460$
-3.	Deye 12 kW three-phase Hybrid Inverter (SUN-12K-SG04LP3-EU)	5 سنوات	1695$
-4.	Deye 16 kW single-phase Hybrid Inverter (SUN-16K-SG01LP1-EU)	5 سنوات	2100$
-5.	Deye 20 kW three-phase Hybrid Inverter (SUN-20k-SG05LP3-EU-SM2)	5 سنوات	2600$
-6.	Deye 5.1 kWh L.V lithium Battery (SE-G5.1)	4 سنوات	625$
-7.	Deye 10.2 kWh L.V lithium Battery (SE-G10.2)	4 سنوات	1140$
-8.	Deye 30 kW three-phase Hybrid Inverter (SUN-30k-SG01HP3-EU-BM3)	5 سنوات	3900$
-9.	Deye SUN-50K-SG01HP3-EU-BM4	5 سنوات	4400$
-10.	Deye BOS-G PRO HV lithium Battery	5 سنوات	820$
-11.	Deye BOS-G H-Rack (13 layer)	5 سنوات	300$
-12.	BOS-G CONTROL BOX	5 سنوات	700$
-13.	BOS-A7.68 HV lithium Battery	5 سنوات	1150$
-14.	14 LAYER RACK	5 سنوات	330$
-15.	CONTROL BOX (PDU-2-BOS-A)	5 سنوات	950$
-16.	LONGI SOLAR 615W HI-MO-7 Bifacial Module with Dual Glass	12 سنة	75$`;
+الرقم	وصف المنتج	الضمان	سعر الجملة (10 قطع فأكثر)	سعر التجزئة (أقل من 10 قطع)
+1.	Deye 6 kW single-phase Hybrid Inverter (SUN-6K-SG04LP1-EU-SM2)	5 سنوات	820$	902$
+2.	Deye 6 kW single-phase Off Grid Inverter (SUN-6K-OG01LB1-EU-AM3)	4 سنوات	460$	506$
+3.	Deye 12 kW three-phase Hybrid Inverter (SUN-12K-SG04LP3-EU)	5 سنوات	1695$	1864.5$
+4.	Deye 16 kW single-phase Hybrid Inverter (SUN-16K-SG01LP1-EU)	5 سنوات	2100$	2310$
+5.	Deye 20 kW three-phase Hybrid Inverter (SUN-20k-SG05LP3-EU-SM2)	5 سنوات	2600$	2860$
+6.	Deye 5.1 kWh L.V lithium Battery (SE-G5.1)	4 سنوات	625$	687.5$
+7.	Deye 10.2 kWh L.V lithium Battery (SE-G10.2)	4 سنوات	1140$	1254$
+8.	Deye 30 kW three-phase Hybrid Inverter (SUN-30k-SG01HP3-EU-BM3)	5 سنوات	3900$	4290$
+9.	Deye SUN-50K-SG01HP3-EU-BM4	5 سنوات	4400$	4840$
+10.	Deye BOS-G PRO HV lithium Battery	5 سنوات	820$	902$
+11.	Deye BOS-G H-Rack (13 layer)	5 سنوات	300$	330$
+12.	BOS-G CONTROL BOX	5 سنوات	700$	770$
+13.	BOS-A7.68 HV lithium Battery	5 سنوات	1150$	1265$
+14.	14 LAYER RACK	5 سنوات	330$	363$
+15.	CONTROL BOX (PDU-2-BOS-A)	5 سنوات	950$	1045$
+16.	LONGI SOLAR 615W HI-MO-7 Bifacial Module with Dual Glass	12 سنة	75$	78.75$`;
 
 export async function POST(request: Request) {
   try {
